@@ -5,13 +5,16 @@ val catsVersion = "1.0.0-MF"
 name         in ThisBuild := "doodle"
 organization in ThisBuild := "underscoreio"
 scalaVersion in ThisBuild := "2.12.2"
+bintrayOrganization in ThisBuild := Some("underscoreio")
+bintrayPackageLabels in ThisBuild := Seq("scala", "training", "creative-scala")
 licenses in ThisBuild += ("Apache-2.0", url("http://apache.org/licenses/LICENSE-2.0"))
 
 lazy val root = project.in(file(".")).
   aggregate(doodleJS, doodleJVM).
   settings(
     publish := {},
-    publishLocal := {}
+    publishLocal := {},
+    bintrayRepository := "training"
   )
 
 lazy val doodle = crossProject.
@@ -25,7 +28,8 @@ lazy val doodle = crossProject.
        "org.typelevel"  %%% "cats-free" % catsVersion,
        "org.scalatest"  %%% "scalatest" % "3.0.2" % "test",
        "org.scalacheck" %%% "scalacheck" % "1.13.5" % "test"
-    )
+    ),
+    bintrayRepository := "training"
   ).jvmSettings(
     libraryDependencies ++= Seq(
       "de.erichseifert.vectorgraphics2d" % "VectorGraphics2D" % "0.11"
